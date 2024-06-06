@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextInput, Alert} from 'react-native';
 import React from 'react';
 import CustomButton from '../components/CustomButton';
 import { useState } from 'react';
+import Title from '../components/Title';
 
 export default function GameStartScreen({ onPress, onSendNumber }) {
   const [enteredNumber, setEnteredNumber] = useState('');
@@ -27,7 +28,7 @@ export default function GameStartScreen({ onPress, onSendNumber }) {
   
   return (
     <View style={styles.container}>
-      <Text>Sayı Tahmin Uygulaması</Text>
+      <Title>Guessing Number Game</Title>
       <View style={styles.card}> 
         <TextInput 
           style={styles.input} 
