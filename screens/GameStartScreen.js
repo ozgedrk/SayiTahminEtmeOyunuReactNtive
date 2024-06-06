@@ -1,39 +1,48 @@
 import { StyleSheet, Text, View, TextInput, Alert} from 'react-native';
-import React , {useState} from 'react';
+import React from 'react';
 import CustomButton from '../components/CustomButton';
+import { useState } from 'react';
 
-export default function GameStartScreen( {onPress} ) {
-  const  [enteredNumber, setEnteredNumber] = useState('')
-  function resetHandler(){
+export default function GameStartScreen({ onPress, onSendNumber }) {
+  const [enteredNumber, setEnteredNumber] = useState('');
+  function resetHandler() {
     setEnteredNumber('');
   }
-  function confirmHandler(){
+
+  function confirmHandler() {
     const chosenNumver = parseInt(enteredNumber)
-    if(isNaN(chosenNumver)  || chosenNumver < 0 || chosenNumver >99 ){
-      Alert.alert('Invalid Number','Number should be between 1 and 99',[{text: 'Okay',style: 'destructive', onPress:resetHandler},]);
+    if (isNaN(chosenNumver) || chosenNumver <= 0 || chosenNumver > 99) {
+      Alert.alert('Invalid Number','Number should be between 1 and 99',[{text: 'Okay',style: 'destructive', 
+      onPress : resetHandler} ,
+      ]);
+      return;
     }
+    onSendNumber(chosenNumver);
   }
+
   function numberHandler(ozge){
-    console.log(ozge);
+    //console.log(ozge);
     setEnteredNumber(ozge);
   }
+  
   return (
     <View style={styles.container}>
       <Text>Sayı Tahmin Uygulaması</Text>
       <View style={styles.card}> 
-        <TextInput style={styles.input} keyboardType='number-pad'
-        maxLength={2}
-        onChangeText={numberHandler}
-        value={enteredNumber}
+        <TextInput 
+          style={styles.input} 
+          keyboardType='number-pad'
+          maxLength={2}
+          onChangeText={numberHandler}
+          value={enteredNumber}
         />
         <View style={styles.buttonsContainer}>
-            <View style={styles.buttonContainer}>
-              <CustomButton onPress={resetHandler}>Temizle</CustomButton>
-            </View>
-
-            <View style={styles.buttonContainer}>
-              <CustomButton onPress={confirmHandler}>Onayla</CustomButton>
-            </View>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={resetHandler}>Temizle</CustomButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={confirmHandler}>Onayla</CustomButton>
+          </View>
         </View>
       </View>
     </View>
@@ -74,7 +83,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer:{
     flex: 1,
-
   },
   
 });
