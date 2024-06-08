@@ -39,10 +39,10 @@ export default function GameStartScreen({ onPress, onSendNumber }) {
         />
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <CustomButton onPress={resetHandler}>Temizle</CustomButton>
+            <CustomButton onPress={resetHandler}>Clear</CustomButton>
           </View>
           <View style={styles.buttonContainer}>
-            <CustomButton onPress={confirmHandler}>Onayla</CustomButton>
+            <CustomButton onPress={confirmHandler}>Approve</CustomButton>
           </View>
         </View>
       </View>
