@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Title from '../components/Title';
 import ComputerNumber from '../components/ComputerNumber';
 import CustomButton from '../components/CustomButton';
 import { AntDesign } from '@expo/vector-icons';
+import ComputerGuess from '../components/ComputerGuess';
 
 let minNumber = 1 ;
 let maxNumber = 100 ;
@@ -36,22 +37,19 @@ export default function GameScreen({ userNumber, onGameOver }) {
       maxNumber = currentGuess
     }
     else{
-      minNumber = currentGuess + 1
+      minNumber = currentGuess + 1 ;
     }
     const newRandomNumber = generateNumber(minNumber,maxNumber,currentGuess);
     setCurrentGuess(newRandomNumber);
-    setGuessCount((prevGuess)=>[newRandomNumber,...prevGuess])
+    setGuessCount((prevGuess) => [newRandomNumber, ...prevGuess]);
   }
 
   function generateNumber(min, max, exclude) {
-    const randomNumber = Math.floor(Math.random() * (max-min)) + min;
+    const randomNumber = Math.floor(Math.random() * (max - min)) + min;
 
-    if(randomNumber === exclude)
-    {
-      return randomNumber(min,max,exclude);
-    }
-    else
-    {
+    if (randomNumber === exclude) {
+      return randomNumber(min, max, exclude);
+    } else { 
       return randomNumber;
     }
   }
@@ -69,6 +67,17 @@ export default function GameScreen({ userNumber, onGameOver }) {
           <AntDesign name="plus" size={24} color="white" />
           </CustomButton>
         </View>
+      </View>
+      <View style={styles.listContainer}> 
+        <FlatList
+        data={guessCount}
+        keyExtractor={(itemData)=>itemData}
+        renderItem={(itemData) => (
+          <ComputerGuess 
+          roundNumber={guessCount.length - itemData.index} 
+          guess={itemData.item}/>
+        )}
+        />
       </View>
     </View>
   );
@@ -101,5 +110,8 @@ const styles = StyleSheet.create({
     color : 'white',
     fontSize: 25,
     marginBottom: 15,
+  },
+  listContainer:{
+    flex: 1
   },
 });

@@ -15,10 +15,17 @@ export default function App() {
     setGameIsOver(false);
    // console.log(sendedNumber);
   }
+
   function gameOverHandler(numberOfGuess){
     setGameIsOver(true);
     setGuessCounts(numberOfGuess)
   }
+
+  function startNewGameHandler(){
+    setUserNumber(null);
+    setGuessCounts(0);
+  }
+
   let screen = <GameStartScreen onSendNumber={sendedNumberHandler} />;
 
   if (userNumber) {
@@ -26,7 +33,7 @@ export default function App() {
   }
   if(gameIsOver && userNumber)
   {
-    screen = <GameOverScreen roundsNumber={guessCounts} userNumber={userNumber} />;
+    screen = <GameOverScreen roundsNumber={guessCounts} userNumber={userNumber} onStartNewGame={startNewGameHandler} />;
   }
 
   return (
